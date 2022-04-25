@@ -6,20 +6,14 @@ import Typography from "@mui/material/Typography";
 
 const MovieCard = ({ title, img, description }) => {
   return (
-    <Card sx={{ maxWidth: 345, marginBottom: 10 }}>
-      <CardMedia
-        className={"movie-card"}
-        component="img"
-        height="300"
-        image={img}
-        alt="movie"
-      />
+    <Card className={"movie-card"} sx={{ maxWidth: 280, marginBottom: 5 }}>
+      <CardMedia component="img" height="320" image={img} alt="movie" />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {description}
+          {`${description.slice(0, 200)} read more...`}
         </Typography>
       </CardContent>
     </Card>

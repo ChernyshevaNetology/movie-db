@@ -6,8 +6,8 @@ const MoviePagination = ({ currentPage, handlePageChange }) => {
   return (
     <div className="pagination">
       <Pagination
-        page={currentPage}
         onChange={handlePageChange}
+        page={currentPage}
         count={100}
         color="secondary"
         renderItem={(item) => (

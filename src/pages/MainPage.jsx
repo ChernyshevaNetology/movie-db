@@ -4,6 +4,7 @@ import { fetchMovies } from "../redux/MoviesSlice";
 import { MovieCard } from "../components/MovieCard";
 import { MoviePagination } from "../components/MoviePagination";
 import { useLocation } from "react-router-dom";
+import { MoviePageHeader } from "../components/MoviePageHeader";
 
 // const POSTER_PATH = `http://image.tmdb.org/t/p/w440_and_h660_face/${POSTER_PATH}`;
 const MainPage = () => {
@@ -14,15 +15,15 @@ const MainPage = () => {
    * 4 Сделать компонент классовым
    * 5 Выводить по 4 фильма, а не по три (в ряд)
    * */
+  const location = useLocation();
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const pageNum = parseInt(location.pathname.slice(-1)) || 1;
+
+  const [currentPage, setCurrentPage] = useState(pageNum);
   const dispatch = useDispatch();
   const API_KEY = "e9f559802c673e3e74a73543bc0c8382";
   const API = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
   const movies = useSelector(({ movies }) => movies);
-  const location = useLocation();
-  console.log("location from main page", location);
-  console.log("currentPage", currentPage);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -38,6 +39,7 @@ const MainPage = () => {
   }, [currentPage, API]);
   return (
     <>
+      <MoviePageHeader currentPage={currentPage} />
       <div className={"movies-container"}>
         {movies &&
           movies.map(({ id, title, overview, poster_path }) => (
