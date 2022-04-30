@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMovies } from "../redux/MoviesSlice";
 import { MovieCard } from "../components/MovieCard";
 import { MoviePagination } from "../components/MoviePagination";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { MoviePageHeader } from "../components/MoviePageHeader";
 
 // const POSTER_PATH = `http://image.tmdb.org/t/p/w440_and_h660_face/${POSTER_PATH}`;
@@ -16,6 +16,10 @@ const MainPage = () => {
    * 5 Выводить по 4 фильма, а не по три (в ряд)
    * */
   const location = useLocation();
+  const params = useParams();
+  console.log("---------------------------------");
+  console.log("params from MainPage componets", params);
+  console.log("---------------------------------");
 
   const pageNum = parseInt(location.pathname.slice(-1)) || 1;
 
@@ -23,7 +27,7 @@ const MainPage = () => {
   const dispatch = useDispatch();
   const API_KEY = "e9f559802c673e3e74a73543bc0c8382";
   const API = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
-  const movies = useSelector(({ movies }) => movies);
+  const movies = useSelector(({ movies }) => movies.movies);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -45,6 +49,7 @@ const MainPage = () => {
           movies.map(({ id, title, overview, poster_path }) => (
             <MovieCard
               key={id}
+              id={id}
               title={title}
               description={overview}
               img={`http://image.tmdb.org/t/p/w440_and_h660_face/${poster_path}`}

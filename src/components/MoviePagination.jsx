@@ -1,8 +1,13 @@
 import React from "react";
 import { Pagination, PaginationItem } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const MoviePagination = ({ currentPage, handlePageChange }) => {
+  const params = useParams();
+  console.log("---------------------------------");
+  console.log("params from MoviePagination", params);
+  console.log("---------------------------------");
+
   return (
     <div className="pagination">
       <Pagination

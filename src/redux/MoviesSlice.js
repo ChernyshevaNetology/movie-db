@@ -16,17 +16,25 @@ export const fetchMovies = createAsyncThunk(
 
 const moviesSlice = createSlice({
   name: "movies",
-  initialState: [],
+  initialState: {
+    isLoading: true,
+    movies: [],
+  },
   reducers: {},
   extraReducers: {
     [fetchMovies.pending]: (state, action) => {
-      return [];
+      return {
+        ...state,
+      };
     },
     [fetchMovies.fulfilled]: (state, action) => {
-      return action.payload;
+      return {
+        isLoading: false,
+        movies: action.payload,
+      };
     },
     [fetchMovies.rejected]: (state, action) => {
-      return [];
+      return state;
     },
   },
 });
